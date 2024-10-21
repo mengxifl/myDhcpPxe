@@ -1,0 +1,20 @@
+[Unit]
+Description=node_exporter
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+# modify when deploy in prod env
+User=root
+Group=root
+
+ExecStart=/bin/bash -c /node_exporter/node_exporter
+
+Restart=always
+RestartSec=1
+StartLimitInterval=0
+
+[Install]
+WantedBy=multi-user.target
+
+#systemctl daemon-reload & systemctl restart node_exporter.service

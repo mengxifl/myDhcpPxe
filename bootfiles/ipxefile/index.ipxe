@@ -1,0 +1,8 @@
+#!ipxe
+set boot-url http://${next-server}
+chain ${boot-url}/bootfiles/ipxefile/${serial:uristring}.ipxe || chain ${boot-url}/bootfiles/ipxefile/defmenu.ipxe
+
+
+#http://10.130.147.239/bootfiles/ipxefile/VMware-42%252014%2520b2%2520f7%2520ac%25209c%25205d%252012-4a%252003%252005%25204f%252021%2520b8%252070%252088.ipxe
+#VMware-42 14 b2 f7 ac 9c 5d 12-4a 03 05 4f 21 b8 70 88.ipxe
+#http://10.130.147.239/bootfiles/ipxefile/VMware-42%2014%20b2%20f7%20ac%209c%205d%2012-4a%2003%2005%204f%2021%20b8%2070%2088.ipxe

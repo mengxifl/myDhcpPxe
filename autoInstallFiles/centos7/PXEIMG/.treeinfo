@@ -1,0 +1,11 @@
+[general]
+name = CentOS-7
+family = CentOS
+timestamp = 1567770561.47
+variant = 
+version = 7
+packagedir = 
+arch = x86_64
+
+[stage2]
+mainimage = squashfs.img

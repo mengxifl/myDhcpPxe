@@ -1,0 +1,42 @@
+#!ipxe
+
+set boot-url http://${next-server}
+set file-path-url http://${next-server}
+
+######## MAIN MENU ###################
+:start
+menu                         install iso files
+item
+item --gap -- -------------------- use netboot.xyz setup --------------------------
+item netboot_xyz   netboot.xyz
+item --gap -- ------------------------------ esxi --------------------------------
+item iso_in_esxi6.7   install esxi6.7
+item iso_in_esxi7.0   install esxi7.0
+item --gap -- ------------------------------ return ---------------------------------
+item parmenu            .. #保留
+
+choose --default exit --timeout 30000 target && goto ${target}
+
+:parmenu
+	chain ${boot-url}/bootfiles/ipxefile/defmenu.ipxe
+
+#----------------------esxi-----------------------
+:iso_in_esxi6.7
+	set isofile isofiles/esxi/ESXi-6.7.0.iso
+	goto start_load_iso
+
+:iso_in_esxi7.0
+	set isofile isofiles/esxi/ESXi-7.0.0.iso
+	goto start_load_iso
+
+:iso_in_ubuntu.18
+	set isofile isofiles/linux/ubuntu-18.04-Srv.iso
+	goto start_load_iso
+
+	
+:start_load_iso
+  initrd ${boot-url}/${isofile}
+  chain ${boot-url}/bootfiles/memdisk iso raw
+
+:netboot_xyz
+  chain --autofree ${boot-url}/bootfiles/netboot.xyz.kpxe

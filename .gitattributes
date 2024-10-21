@@ -1,0 +1,5 @@
+* text=auto eol=lf
+bootfiles/winPE/iso/PE.iso filter=lfs diff=lfs merge=lfs -text
+bootfiles/winPE/wim/boot.wim filter=lfs diff=lfs merge=lfs -text
+autoInstallFiles/centos7/PXEIMG/squashfs.img filter=lfs diff=lfs merge=lfs -text
+autoInstallFiles/esxi/7.0/tools.t00 filter=lfs diff=lfs merge=lfs -text

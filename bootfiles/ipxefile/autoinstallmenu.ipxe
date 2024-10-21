@@ -1,0 +1,61 @@
+#!ipxe
+
+set boot-url http://${next-server}
+set file-path-url http://${next-server}
+
+######## MAIN MENU ###################
+:start
+menu                         auto install menu
+item
+item --gap -- ------------------------------ centos7 --------------------------------
+item auto_in_centos7.2   auto install centos7.2
+item auto_in_centos7.6   auto install centos7.6
+item auto_in_centos7.7   auto install centos7.7
+
+item --gap -- ------------------------------ esxi --------------------------------
+item auto_in_esxi6.7   auto install esxi6.7
+item auto_in_esxi7.0   auto install esxi7.0
+item --gap -- ------------------------------ return ---------------------------------
+item parmenu            .. #保留
+
+choose --default exit --timeout 30000 target && goto ${target}
+
+:parmenu
+	chain ${boot-url}/bootfiles/ipxefile/defmenu.ipxe
+
+#----------------------centos-----------------------
+:auto_in_centos7.2
+	set ksfile centos7.2mini.ks
+	goto auto_ins_centos7
+:auto_in_centos7.6
+	set ksfile centos7.6mini.ks
+	goto auto_ins_centos7
+:auto_in_centos7.7
+	set ksfile centos7.7mini.ks
+	goto auto_ins_centos7
+
+:auto_ins_centos7
+	initrd ${file-path-url}/bootfiles/minikernels/centos/initrd.img
+	kernel ${file-path-url}/bootfiles/minikernels/centos/vmlinuz inst.repo=${file-path-url}/autoinstallfiles/linux/centos7/PXEIMG/ ks=${file-path-url}/autoinstallfiles/linux/centos7/${ksfile}
+	boot
+
+#----------------------esxi-----------------------
+
+
+:auto_in_esxi6.7
+	set c32file mboot.c32
+	set c32conf c32file6.7.cfg
+	goto auto_ins_esxi
+
+:auto_in_esxi7.0
+	set c32file mboot.c32
+	set c32conf c32file7.0.cfg
+	goto auto_ins_esxi
+
+:auto_ins_esxi
+	#dhcp
+	kernel ${file-path-url}/bootfiles/minikernels/esxi/${c32file} -c ${file-path-url}/bootfiles/minikernels/esxi/${c32conf}
+	#kernel ${file-path-url}/bootfiles/minikernels/esxi/${c32file}
+	#imgargs ${file-path-url}/bootfiles/minikernels/esxi/${c32file} -c ${file-path-url}/bootfiles/minikernels/esxi/${c32conf}
+	#kernel ${file-path-url}/bootfiles/minikernels/esxi/${c32conf}
+	boot

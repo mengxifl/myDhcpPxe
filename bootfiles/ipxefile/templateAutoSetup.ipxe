@@ -1,0 +1,33 @@
+#!ipxe
+
+set boot-url http://${next-server}
+set file-path-url http://${next-server}
+
+######## MAIN MENU ###################
+
+menu Install system preposition menu
+item
+item --gap -- ------------------------- Optionals ------------------------------
+item install_system      Install system
+item load_other_meun          load other menu
+item exit                Exit (boot local disk)
+choose --default install_system --timeout 1000 target && goto ${target}
+
+
+########## UTILITY ITEMS ####################
+
+:exit
+	exit
+
+##########othermenu#####################
+:load_other_meun
+	chain ${boot-url}/bootfiles/ipxefile/defmenu.ipxe
+
+
+##########install system ####################
+:install_system
+#initrd ${file-path-url}/bootfiles/minikernels/centos/initrd.img
+#kernel ${file-path-url}/bootfiles/minikernels/centos/vmlinuz inst.repo=${file-path-url}/installfiles/linux/centos7/PXEIMG/ ks=http://192.168.11.10/installfiles/linux/centos7/centos7.2mini.ks
+#boot
+
+#http://192.168.11.10/installfiles/linux/centos7/PXEIMG/

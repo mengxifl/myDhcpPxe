@@ -1,0 +1,56 @@
+================================================================================
+
+                                VMware ESXi 7.0
+
+                            Distribution CD - README
+================================================================================
+
+Copyright (c) 1998-2020 VMware, Inc. All rights reserved.
+This product is protected by copyright and intellectual property laws in the
+United States and other countries as well as by international treaties. VMware
+products are covered by one or more patents listed at:
+https://www.vmware.com/download/patents.html
+
+VMware, the VMware "boxes" logo and design, Virtual SMP and vMotion are
+registered trademarks or trademarks of VMware, Inc. in the United States and/or
+other jurisdictions. All other marks and names mentioned herein may be
+trademarks of their respective companies.
+
+This document provides information about the files stored on this CD-ROM and
+points you to additional resources on the VMware website.
+
+---------------
+PRODUCT VERSION
+---------------
+
+This CD-ROM contains VMware ESXi version 7.0 software.
+
+-----------------------------------------
+GNU GENERAL PUBLIC LICENSE (GPL) SOURCE FILES
+-----------------------------------------
+
+To the extent any open source components are licensed under the GPL and/or LGPL,
+or other similar licenses that require the source code and/or modifications to
+source code to be made available (as would be noted above), you may obtain a
+copy of the source code corresponding to the binaries for such open source
+components and modifications thereto, if any, (the Source Files), by downloading
+the Source Files from VMware's website at:
+
+https://www.vmware.com/download/open_source.html
+
+---------------------
+ONLINE DOCUMENTATION
+---------------------
+
+Before installing ESXi, read the installation and upgrade documentation on the
+website for important information on the installation process and licensing. You
+can find documentation of ESXi at:
+
+https://docs.vmware.com/en/VMware-vSphere/index.html
+
+Release Notes for this product contain a summary of things you should keep in
+mind when installing and upgrading to ESXi 7.0.
+
+-----------------
+ - end of file -
+-----------------

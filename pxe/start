@@ -1,0 +1,1 @@
+docker run -it  --restart=always --network=host --name=pxedhcp  -v /netdeviceconf/dhcp:/config hyperion/kea-dhcp:v0.5  /bin/sh /usr/local/sbin/kea-dhcp4 -c /config/dhcpconf.json

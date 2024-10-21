@@ -1,0 +1,72 @@
+#!ipxe
+
+set boot-url http://${next-server}
+
+#chain --autofree ${boot-url}/bootfiles/netboot.xyz.kpxe
+######## MAIN MENU ###################
+:start
+menu                         Welcome to iPXE's Boot Menu
+item
+item --gap -- ------------------------------ Optionals --------------------------------
+item autoinstall   Auto install centos or esxi
+item isoinstall          Install system from iso file
+item winpe            Boot WinPE from wim image
+item winpeiso         Boot WinPE from iso image
+item --gap -- ------------------------------ Advanced ---------------------------------
+item config       Configure settings #保留
+item shell      Enter iPXE shell #保留
+item reboot     Reboot #保留
+item exit       Exit (boot local disk) #保留
+
+choose --default exit --timeout 30000 target && goto ${target}
+
+
+########## Advanced ####################
+:shell
+  echo Type exit to get the back to the menu
+  shell
+  set menu-timeout 0
+  goto start
+
+:failed
+  echo Booting failed, dropping to shell
+  goto shell 
+
+:reboot
+  reboot
+
+:exit
+  exit
+
+:cancel
+  echo You cancelled the menu, dropping you to a shell
+ 
+:config
+  config
+  goto start
+ 
+:back
+  set submenu-timeout 0
+  clear submenu-default
+  goto start
+
+
+########## Optionals ####################
+:autoinstall
+  chain ${boot-url}/bootfiles/ipxefile/autoinstallmenu.ipxe
+
+:winpe
+  kernel ${boot-url}/bootfiles/winPE/wimbootfile/wimboot
+  initrd ${boot-url}/bootfiles/winPE/boot/bootmgr        BOOTMGR
+  initrd ${boot-url}/bootfiles/winPE/boot/bcd            BCD
+  initrd ${boot-url}/bootfiles/winPE/boot/boot.sdi       BOOT.SDI
+  initrd ${boot-url}/bootfiles/winPE/wim/boot.wim BOOT.WIM
+  boot || goto start
+
+:isoinstall
+  chain ${boot-url}/bootfiles/ipxefile/isoinstallmenu.ipxe
+
+
+:winpeiso
+  initrd ${boot-url}/bootfiles/winPE/iso/PE.iso
+  chain ${boot-url}/bootfiles/memdisk iso raw
